@@ -1,16 +1,49 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <body>
 
-<h1>A Web Page</h1>
-<p id="demo">A Paragraph</p>
-<button type="button" onclick="myFunction()">Try it</button>
+<h1>Input your note to be saved</h1>
+
+Input note: <input type="text" name="fname" id="inp1"><br>
+
+<button type="button" onclick="myFunction()">Save</button>
+
 
 <script>
 function myFunction() {
-  document.getElementById("demo").innerHTML = "Paragraph changed.";
+  window.alert(document.getElementById("inp1").value);
+
 }
 </script>
 
 </body>
-</html>
+</html> -->
+
+<h1>Input your note to be saved</h1>
+Input note: <input type="text" name="fname" id="inp1"><br>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+$("#getReq").click(function(){
+ $.ajax({
+ url: 'https://URL OF YOUR LAMBDA API GATEWAY?TableName=Tasks',
+ type: 'POST',
+ data: JSON.stringify({"TableName": "Tasks", "Item": {"TaskName":"Do groceries", "TaskContext":"Store", "Importance":"Very high"}}),
+ success: function(data) {
+alert("POSTed successfully");
+},
+error: function(xhr, ajaxOptions, thrownError) {
+alert("Error");
+}
+});
+});
+});
+</script>
+</head>
+<body>
+<div>
+<button id="getReq">Save Note</button>
+</div>
+</body>
