@@ -19,24 +19,37 @@ function myFunction() {
 </body>
 </html> -->
 
-<!-- <h1>Input your note to be saved</h1>
+<h1>Input your note to be saved</h1>
 Input note: <input type="text" name="fname" id="inp1"><br>
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
-$("#getReq").click(function(){
+$("#putReq").click(function(){
  $.ajax({
- url: 'https://URL OF YOUR LAMBDA API GATEWAY?TableName=Tasks',
+ url: 'https://ahidfnv1wk.execute-api.us-west-2.amazonaws.com/prod/SaveNotes/',
+ // headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+ // crossDomain: true,
  type: 'POST',
- data: JSON.stringify({"TableName": "Tasks", "Item": {"TaskName":"Do groceries", "TaskContext":"Store", "Importance":"Very high"}}),
+ data: JSON.stringify({"note_text": document.getElementById("inp1").value}),
  success: function(data) {
-alert("POSTed successfully");
+   alert("POSTed successfully");
+    },
+error: function(xhr, textStatus, errorThrown) {
+  // alert(xhr.status);
+  // alert(textStatus);
+  // alert(errorThrown);
+  alert("Error");
 },
-error: function(xhr, ajaxOptions, thrownError) {
-alert("Error");
-}
+statusCode: {
+  0: function() {
+    alert('0 status code! user error');
+  },
+  500: function() {
+      alert('500 status code! server error');
+    }
+  }
 });
 });
 });
@@ -44,17 +57,18 @@ alert("Error");
 </head>
 <body>
 <div>
-<button id="getReq">Save Note</button>
+<button id="putReq">Save Note</button>
 </div>
-</body> -->
+</body>
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
  $("#getReq").click(function(){
+   alert("hello")
  $.get("https://ahidfnv1wk.execute-api.us-west-2.amazonaws.com/prod/SaveNotes/", function(data, status){
   alert("Data: " + data + "\nStatus: " + status);
  $("#result").text(JSON.stringify(data) );
@@ -73,4 +87,4 @@ $(document).ready(function(){
  Result
 </div>
 </body>
-</html>
+</html> -->
