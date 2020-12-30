@@ -1,26 +1,5 @@
-<!-- <!DOCTYPE html>
-<html>
-<body>
-
 <h1>Input your note to be saved</h1>
-
-Input note: <input type="text" name="fname" id="inp1"><br>
-
-<button type="button" onclick="myFunction()">Save</button>
-
-
-<script>
-function myFunction() {
-  window.alert(document.getElementById("inp1").value);
-
-}
-</script>
-
-</body>
-</html> -->
-
-<h1>Input your note to be saved</h1>
-Input note: <input type="text" name="fname" id="inp1"><br>
+Input note: <textarea type="text" name="fname" id="inp1"> </textarea>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -54,37 +33,43 @@ statusCode: {
 });
 });
 </script>
-</head>
-<body>
-<div>
-<button id="putReq">Save Note</button>
-</div>
-</body>
 
-<!-- <!DOCTYPE html>
-<html>
-<head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
- $("#getReq").click(function(){
-   alert("hello")
- $.get("https://ahidfnv1wk.execute-api.us-west-2.amazonaws.com/prod/SaveNotes/", function(data, status){
-  alert("Data: " + data + "\nStatus: " + status);
- $("#result").text(JSON.stringify(data) );
- });
- });
- });
+$("#getReq").click(function(){
+ $.ajax({
+ url: 'https://ahidfnv1wk.execute-api.us-west-2.amazonaws.com/prod/SaveNotes/',
+ // headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+ // crossDomain: true,
+ type: 'GET',
+ success: function(data) {
+   // alert("POSTed successfully" + data[0]['timestamp']);
+   document.getElementById("output").value = JSON.stringify(data)
+    },
+error: function(xhr, textStatus, errorThrown) {
+  // alert(xhr.status);
+  // alert(textStatus);
+  // alert(errorThrown);
+  alert("Error");
+},
+statusCode: {
+  0: function() {
+    alert('0 status code! user error');
+  },
+  500: function() {
+      alert('500 status code! server error');
+    }
+  }
+});
+});
+});
 </script>
 </head>
 <body>
 <div>
- <br>
-<button id="getReq">Send HTTP GET request to a AWS and get result</button>
-<br>
-</div>
-<div id="result">
- Result
+<button id="putReq">Save Note</button>
+<br><br><br>
+<button id="getReq">Show my notes</button>
+Notes: <textarea type="text" name="notes" id="output"> </textarea>
 </div>
 </body>
-</html> -->
