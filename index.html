@@ -19,7 +19,7 @@ function myFunction() {
 </body>
 </html> -->
 
-<h1>Input your note to be saved</h1>
+<!-- <h1>Input your note to be saved</h1>
 Input note: <input type="text" name="fname" id="inp1"><br>
 
 
@@ -46,4 +46,31 @@ alert("Error");
 <div>
 <button id="getReq">Save Note</button>
 </div>
+</body> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+ $("#getReq").click(function(){
+ $.get("https://ahidfnv1wk.execute-api.us-west-2.amazonaws.com/prod/SaveNotes/", function(data, status){
+  alert("Data: " + data + "\nStatus: " + status);
+ $("#result").text(JSON.stringify(data) );
+ });
+ });
+ });
+</script>
+</head>
+<body>
+<div>
+ <br>
+<button id="getReq">Send HTTP GET request to a AWS and get result</button>
+<br>
+</div>
+<div id="result">
+ Result
+</div>
 </body>
+</html>
